@@ -15,7 +15,7 @@ function restockProduct(products, productId, amount) {
     return null;
   }
 
-  product.stock = product.stock + amount;
+  product.stock += amount;
   return product;
 }
 
