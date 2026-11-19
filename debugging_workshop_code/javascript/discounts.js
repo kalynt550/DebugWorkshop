@@ -51,6 +51,10 @@ function applyDiscounts(order, customer, products, subtotal) {
   const bulkDiscount = bulkDiscountAmount(order.items || [], products);
 
   const discountedSubtotal = subtotalAfterCoupon - loyaltyDiscount - bulkDiscount;
+  if (discountedSubtotal < 0) { //discount shouldnt make the total less than zero -melissa
+      discountedSubtotal = 0;
+  }
+
 
   return {
     couponDiscount: Number(couponDiscount.toFixed(2)),
