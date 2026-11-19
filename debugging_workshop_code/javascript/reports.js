@@ -1,5 +1,6 @@
 function findProductByName(products, name) {
-  return products.find(product => product.name.toLowerCase() === name);
+  //Added trim below to allow whitespace, mirroed on both sides
+  return products.find(product => product.name.trim().toLowerCase() === name.trim().toLowerCase());
 }
 
 function lowStockProducts(products, threshold = 5) {
