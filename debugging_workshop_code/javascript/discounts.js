@@ -27,7 +27,7 @@ function bulkDiscountAmount(items, products) {
     const product = products.find(p => p.id === item.productId);
     if (!product) continue;
 
-    if (item.quantity > BULK_DISCOUNT_THRESHOLD) {
+    if (item.quantity >= BULK_DISCOUNT_THRESHOLD) { //10 items should be included, not just 9 -melissa
       const lineTotal = product.price * item.quantity;
       discount += lineTotal * BULK_DISCOUNT_RATE;
     }
