@@ -3,6 +3,7 @@ const BULK_DISCOUNT_RATE = 0.07;
 const LOYALTY_RATE = 0.05;
 
 function couponDiscountAmount(couponCode, subtotal) {
+  /*calculates the discount amount on a subtotal based on the coupon code*/
   if (!couponCode) {
     return 0;
   }
@@ -21,6 +22,7 @@ function couponDiscountAmount(couponCode, subtotal) {
 }
 
 function bulkDiscountAmount(items, products) {
+  /*calculates if a product counts for a bulk discount based on how much of each product was puchased*/
   let discount = 0;
 
   for (const item of items) {
@@ -37,6 +39,7 @@ function bulkDiscountAmount(items, products) {
 }
 
 function loyaltyDiscountAmount(customer, subtotalAfterCoupon) {
+  /*checks if the customer is a loyalty member, then applies the loyalty coupon to their discounted subtotal*/
   if (!customer || !customer.isLoyal) {  //checks if a customer is a loyalty member -melissa
     return 0;
   }
@@ -44,6 +47,7 @@ function loyaltyDiscountAmount(customer, subtotalAfterCoupon) {
 }
 
 function applyDiscounts(order, customer, products, subtotal) {
+  /*applies the discounts to the order*/
   const couponDiscount = couponDiscountAmount(order.coupon, subtotal);
   const subtotalAfterCoupon = subtotal - couponDiscount;
 
