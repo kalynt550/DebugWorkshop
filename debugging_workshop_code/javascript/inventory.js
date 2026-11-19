@@ -2,7 +2,9 @@ function reserveInventory(products, order) {
   for (const item of order.items) {
     const product = products.find(p => p.id === item.productId);
     if (product) {
-      product.stock -= 1;
+      if (product>0){
+        product.stock -= 1;
+      }
     }
   }
 }
