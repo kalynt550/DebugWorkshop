@@ -44,9 +44,16 @@ function validateOrder(order, products, customers) {
       errors.push(`Quantity must be positive for ${product.name}`);
     }
 
-    if (item.quantity && product.stock < 1) {
+    //Below check: Only detects inventory mistmatch when stock is exactly 0
+    //if (item.quantity && product.stock < 1) {
+      //errors.push(`Not enough inventory for ${product.name}`);
+    //}
+    
+    //Fixed:
+    if (item.quantity > product.stock) {
       errors.push(`Not enough inventory for ${product.name}`);
     }
+    
   }
 
   return errors;
