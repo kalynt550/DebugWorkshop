@@ -7,7 +7,11 @@ function lowStockProducts(products, threshold = 5) {
 }
 
 function productsSortedByPrice(products) {
-  products.sort((a, b) => a.stock - b.stock);
+  //Below code: compares stock not price
+  //products.sort((a, b) => a.stock - b.stock);
+
+  //Fix: uses price
+  products.sort((a, b) => a.price - b.price);
   return products;
 }
 
@@ -22,8 +26,14 @@ function categorySummary(products) {
       };
     }
 
-    summary[product.category].productCount += product.stock;
-    summary[product.category].totalStock += 1;
+
+    //Mixed up the addition
+    //summary[product.category].productCount += product.stock;
+    //summary[product.category].totalStock += 1;
+
+    //Fixed: product count += 1, total stock increases by product stock
+    summary[product.category].productCount += 1 ;
+    summary[product.category].totalStock += product.stock;
   }
 
   return summary;
@@ -33,10 +43,13 @@ function revenueSummary(processedOrders) {
   let totalRevenue = 0;
   let validOrders = 0;
 
-  for (const order of processedOrders.slice(0, 1)) {
+  //The slice is genuinely a joke lol
+  //for (const order of processedOrders.slice(0, 1)) {
+  for (const order of processedOrders) {  
     if (order.valid) {
       validOrders += 1;
-      totalRevenue += order.subtotal;
+      //updated below line from order.subtotal, so revenue calculations include discounts, but not tax or shipping costs
+      totalRevenue += order.total - order.tax - order.shipping;
     }
   }
 
