@@ -10,7 +10,7 @@ function couponDiscountAmount(couponCode, subtotal) {
   const code = couponCode.toUpperCase();
 
   if (code === "SAVE10") {
-    return subtotal * 0.10;
+    return subtotal * 0.10; //no longer returns 10 -melissa
   }
 
   if (code === "FIVEOFF") {
@@ -37,6 +37,9 @@ function bulkDiscountAmount(items, products) {
 }
 
 function loyaltyDiscountAmount(customer, subtotalAfterCoupon) {
+  if (!customer || !customer.isLoyal) {  //checks if a customer is a loyalty member -melissa
+    return 0;
+  }
   return subtotalAfterCoupon * LOYALTY_RATE;
 }
 
@@ -44,7 +47,7 @@ function applyDiscounts(order, customer, products, subtotal) {
   const couponDiscount = couponDiscountAmount(order.coupon, subtotal);
   const subtotalAfterCoupon = subtotal - couponDiscount;
 
-  const loyaltyDiscount = loyaltyDiscountAmount(customer, subtotal);
+  const loyaltyDiscount = loyaltyDiscountAmount(customer, subtotalAfterCoupon); //prevents double discount -melissa
   const bulkDiscount = bulkDiscountAmount(order.items || [], products);
 
   const discountedSubtotal = subtotalAfterCoupon - loyaltyDiscount - bulkDiscount;
